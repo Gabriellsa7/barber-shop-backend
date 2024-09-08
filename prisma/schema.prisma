@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  password String
+  phone String? @unique
+  reservations HairCutReservation[]
+  payments Payment[]
+  authentications ClientAuthentication[]
+  @@map("clients")
+}
+
+model ClientAuthentication {
+  id        String    @id @default(uuid())
+  user_id String
+  token     String
+  client    User  @relation(fields: [user_id], references: [id])
+
+  @@map("client_authentication")
+}
+
+model BarberShop {
+  id String @id @default(uuid())
+  name String
+  address String
+  description String
+  rating Float
+  opening_hours String
+  image_url String
+  services HairCutService[]
+  haircuts HairCut[]
+  reservations HairCutReservation[]
+
+
+  @@map("barber_shop")
+}
+
+model HairCutReservation {
+  id             String @id @default(uuid())
+  date_time      DateTime
+  status         String
+  image_url      String
+  user_id      String
+  user         User             @relation(fields: [user_id], references: [id])
+  barbershop_id  String
+  barbershop     BarberShop         @relation(fields: [barbershop_id], references: [id])
+  service_id     String
+  service        HairCutService     @relation(fields: [service_id], references: [id])
+  payment        Payment []
+
+  @@map("hair_cut_reservation")
+}
+
+model HairCutService {
+  id String @id @default(uuid())
+  name String
+  description String
+  price Float
+  duration Int
+  image_url String
+  id_barbershop String
+  barbershop  BarberShop @relation(fields: [id_barbershop], references: [id])
+  reservations   HairCutReservation[]
+  hair_cut HairCut[]
+
+  @@map("hair_cut_service")
+}
+
+model HairCut {
+  id String @id @default(uuid())
+  name String
+  description String
+  image_url String
+  barbershop_id  String
+  service_id String
+  barbershop BarberShop          @relation(fields: [barbershop_id], references: [id])
+  service HairCutService      @relation(fields: [service_id], references: [id])
+
+  @@map("hair_cut")
+}
+
+model Payment {
+  id String @id @default(uuid())
+  value Float
+  payment_method String
+  status String
+  user_id      String
+  reserve_id     String
+  user         User             @relation(fields: [user_id], references: [id])
+  reservation    HairCutReservation @relation(fields: [reserve_id], references: [id])
+
+  @@map("payment")
+}
+
