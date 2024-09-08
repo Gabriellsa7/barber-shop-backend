@@ -14,4 +14,8 @@ routes.post("/users", UserController.createUser);
 // When a GET request is made to this endpoint, the getUsers method from UserController will be invoked
 routes.get("/users", UserController.getUsers);
 
+// Define a route for handling GET requests to "/users"
+// When a GET request is made to this endpoint, the getUserById method from UserController will be invoked
+routes.get("/users/:id", UserController.getUsersById);
+
 export default routes;

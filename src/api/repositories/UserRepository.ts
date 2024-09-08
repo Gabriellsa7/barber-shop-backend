@@ -23,4 +23,8 @@ export class UserRepository implements IUserRepository {
     // Use the PrismaClient instance to retrieve all user records from the database
     return await prisma.user.findMany();
   }
+
+  async getUserById(id: string): Promise<any> {
+    return await prisma.user.findUnique({ where: { id } });
+  }
 }

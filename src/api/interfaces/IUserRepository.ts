@@ -11,4 +11,7 @@ export interface IUserRepository {
   // Method to retrieve a list of users
   // Returns a Promise that resolves to an array of any type (usually an array of user objects)
   getUsers(): Promise<any[]>;
+
+  // Returns a Promise that resolve a user
+  getUserById(id: string): Promise<any>;
 }

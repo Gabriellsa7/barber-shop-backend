@@ -22,4 +22,10 @@ export class UserService {
     // Calls the getUsers method on the repository to fetch user data
     return await this.userRepository.getUsers();
   }
+
+  // Method to retrieve a user
+  public async getUsersById(id: string) {
+    // Calls the getUserById method on the repository to fetch user data
+    return await this.userRepository.getUserById(id);
+  }
 }
