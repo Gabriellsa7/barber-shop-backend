@@ -14,4 +14,15 @@ export interface IUserRepository {
 
   // Returns a Promise that resolve a user
   getUserById(id: string): Promise<any>;
+
+  updateUser(
+    id: string,
+    data: {
+      name?: string;
+      email?: string;
+      password?: string;
+    }
+  ): Promise<any>;
+
+  deleteUser(id: string): Promise<any>;
 }
