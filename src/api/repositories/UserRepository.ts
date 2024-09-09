@@ -27,4 +27,18 @@ export class UserRepository implements IUserRepository {
   async getUserById(id: string): Promise<any> {
     return await prisma.user.findUnique({ where: { id } });
   }
+
+  async updateUser(
+    id: string,
+    data: { name?: string; email?: string; password?: string }
+  ): Promise<any> {
+    return await prisma.user.update({
+      where: { id: String(id) },
+      data,
+    });
+  }
+
+  async deleteUser(id: string) {
+    return await prisma.user.delete({ where: { id } });
+  }
 }
