@@ -28,4 +28,17 @@ export class UserService {
     // Calls the getUserById method on the repository to fetch user data
     return await this.userRepository.getUserById(id);
   }
+
+  public async updateUser(
+    id: string,
+    data: { name: string; email: string; password: string }
+  ) {
+    // Calls the getUserById method on the repository to fetch user data
+    return await this.userRepository.updateUser(id, data);
+  }
+
+  public async deleteUser(id: string) {
+    // Calls the getUserById method on the repository to fetch user data
+    return await this.userRepository.deleteUser(id);
+  }
 }
