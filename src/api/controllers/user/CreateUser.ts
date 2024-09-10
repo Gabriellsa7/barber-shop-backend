@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { UserService } from "../../services/UserService";
 import { UserRepository } from "../../repositories/UserRepository";
 import { prisma } from "../../database";
-import { error } from "console";
 import { validateUserFields } from "../../utils/userValidation";
 
 // Method to handle the creation of a new user.
@@ -13,22 +12,9 @@ export default {
       // Destructures name, email, and password from the request body (sent by the client).
       const { name, email, password } = req.body;
 
-      // Check if a user with the given email already exists in the database
-      const userExist = await prisma.user.findUnique({
-        where: { email }, // Search the user by the 'email' field
-      });
-
-      // If the user already exists, return an error response
-      if (userExist) {
-        return res.json({
-          error: true, // Indicate that there was an error
-          message: "Error: user already exist", // Message informing that the user already exists
-        });
-      }
-
       // Validate fields using the utility function
-      const validation = validateUserFields(name, email, password);
-      if (validation.error) {
+      const validation = await validateUserFields(name, email, password);
+      if (validation && validation.error) {
         return res.json(validation);
       }
       // Create an instance of UserService, injecting a new instance of UserRepository as a dependency

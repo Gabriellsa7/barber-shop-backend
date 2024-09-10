@@ -1,4 +1,6 @@
-export function validateUserFields(
+import { prisma } from "../database";
+
+export async function validateUserFields(
   name: string,
   email: string,
   password: string
@@ -21,6 +23,19 @@ export function validateUserFields(
     return {
       error: true,
       message: "Password must be at least 6 characters long",
+    };
+  }
+
+  // Check if a user with the given email already exists in the database
+  const userExist = await prisma.user.findUnique({
+    where: { email }, // Search the user by the 'email' field
+  });
+
+  // If the user already exists, return an error response
+  if (userExist) {
+    return {
+      error: true,
+      message: "Email Already Exist",
     };
   }
   return { error: false };
