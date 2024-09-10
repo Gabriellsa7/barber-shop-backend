@@ -39,9 +39,9 @@ model BarberShop {
   name String
   address String
   description String
-  rating Float
-  opening_hours String
-  image_url String
+  rating Float?
+  opening_hours String?
+  image_url String?
   services HairCutService[]
   haircuts HairCut[]
   reservations HairCutReservation[]
