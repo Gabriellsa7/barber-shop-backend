@@ -1,5 +1,6 @@
 import Express from "express";
 import userRoutes from "./api/routes/userRoutes";
+import barberShopRoutes from "./api/routes/barberShopRoutes";
 
 const app = Express();
 app.use(Express.json());
@@ -12,6 +13,7 @@ app.get("/api", (req, res) => {
 
 app.use(Express.json());
 app.use("/api", userRoutes);
+app.use("/api", barberShopRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running ${PORT}`);
