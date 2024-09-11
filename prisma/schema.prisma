@@ -41,7 +41,7 @@ model BarberShop {
   description String
   rating Float?
   opening_hours String?
-  image_url String?
+  img_url String?
   services HairCutService[]
   haircuts HairCut[]
   reservations HairCutReservation[]
@@ -54,11 +54,11 @@ model HairCutReservation {
   id             String @id @default(uuid())
   date_time      DateTime
   status         String
-  image_url      String
+  img_url      String
   user_id      String
   user         User             @relation(fields: [user_id], references: [id])
-  barbershop_id  String
-  barbershop     BarberShop         @relation(fields: [barbershop_id], references: [id])
+  barberShop_id  String
+  barberShop     BarberShop         @relation(fields: [barberShop_id], references: [id])
   service_id     String
   service        HairCutService     @relation(fields: [service_id], references: [id])
   payment        Payment []
@@ -72,9 +72,9 @@ model HairCutService {
   description String
   price Float
   duration Int
-  image_url String
-  id_barbershop String
-  barbershop  BarberShop @relation(fields: [id_barbershop], references: [id])
+  img_url String
+  id_barberShop String
+  barberShop  BarberShop @relation(fields: [id_barberShop], references: [id])
   reservations   HairCutReservation[]
   hair_cut HairCut[]
 
@@ -85,10 +85,10 @@ model HairCut {
   id String @id @default(uuid())
   name String
   description String
-  image_url String
-  barbershop_id  String
+  img_url String
+  barberShop_id  String
   service_id String
-  barbershop BarberShop          @relation(fields: [barbershop_id], references: [id])
+  barberShop BarberShop          @relation(fields: [barberShop_id], references: [id])
   service HairCutService      @relation(fields: [service_id], references: [id])
 
   @@map("hair_cut")
