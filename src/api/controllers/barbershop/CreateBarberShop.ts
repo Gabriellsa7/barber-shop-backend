@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
-import { prisma } from "../../database";
 import { BarberShopService } from "../../services/BarberShopService";
 import { BarberShopRepository } from "../../repositories/BarberShopRepository";
-import { error } from "console";
-import { validateBarberShopFields } from "../../utils/BarberShopValidation";
+import { validateBarberShopFields } from "../../utils/barberShopValidation";
 
 export default {
   async createBarberShope(req: Request, res: Response) {
