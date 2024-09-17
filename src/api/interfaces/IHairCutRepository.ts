@@ -24,6 +24,6 @@ export interface IHairCutRepository {
 
   deleteHairCut(id: string): Promise<any>;
 
-  // New method to get a barbershop by ID
+  // New method to get a barbershop by ID, used in a validation
   getBarberShop(barberShop_id: string): Promise<any | null>;
 }
