@@ -10,17 +10,17 @@ export default {
 
       const createdHairCut = new HairCutService(new HairCutRepository());
 
-      const hairCut = await createdHairCut.createHairCut(
+      const hairCut = await createdHairCut.createHairCut({
         name,
         description,
         img_url,
         barberShop_id,
-        service_id
-      );
+        service_id,
+      });
 
       return res.status(200).send(hairCut);
     } catch (error) {
-      return res.status(500).send({
+      return res.status(400).send({
         message: "It was not possible to create the HairCut",
       });
     }
