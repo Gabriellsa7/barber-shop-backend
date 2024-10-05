@@ -3,13 +3,22 @@ import { BarberServiceRepository } from "../repositories/BarberServiceRepository
 export class BarberServiceService {
   constructor(private baberServiceRepository: BarberServiceRepository) {}
 
-  public createBarberService(data: {
+  public async createBarberService(data: {
     name: string;
     description: string;
     price: number;
     duration: number;
     barberShop_id: string;
   }) {
+    // Business logic: check if the barberShop_id is valid
+    const barberShopExists = await this.baberServiceRepository.getBarberShop(
+      data.barberShop_id
+    );
+
+    if (!barberShopExists) {
+      throw new Error("Invalid barbershop ID");
+    }
+
     return this.baberServiceRepository.createService(data);
   }
 
