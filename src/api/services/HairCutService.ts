@@ -8,31 +8,29 @@ export class HairCutService {
 
   // Method to create a new haircut.
   // It receives the haircut details (name, description, img_url, barberShop_id, service_id).
-  public async createHairCut(
-    name: string,
-    description: string,
-    img_url: string,
-    barberShop_id: string,
-    service_id: string
-  ) {
+  public async createHairCut(data: {
+    name: string;
+    description: string;
+    img_url: string;
+    barberShop_id: string;
+    service_id: string;
+  }) {
     // Business logic: check if the barberShop_id is valid
     const barberShopExists = await this.hairCutRepository.getBarberShop(
-      barberShop_id
+      data.barberShop_id
     );
 
-    if (!barberShopExists) {
+    const barberServiceExists = await this.hairCutRepository.getBarberService(
+      data.barberShop_id
+    );
+
+    if (!barberShopExists && !barberServiceExists) {
       throw new Error("Invalid barbershop ID");
     }
 
     // Calls the repository's createHairCut method, passing the necessary data.
     // This method adds any business logic before calling the repository.
-    const hairCut = await this.hairCutRepository.createHairCut({
-      name,
-      description,
-      img_url,
-      barberShop_id,
-      service_id,
-    });
+    const hairCut = await this.hairCutRepository.createHairCut(data);
 
     // Returns the newly created haircut from the repository.
     return hairCut;
