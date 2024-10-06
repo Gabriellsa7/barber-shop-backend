@@ -18,6 +18,7 @@ export interface IBarberService {
       description?: string;
       price?: number;
       duration?: number;
+      barberShop_id?: string;
     }
   ): Promise<any>;
 
