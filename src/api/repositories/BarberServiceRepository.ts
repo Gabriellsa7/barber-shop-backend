@@ -29,6 +29,7 @@ export class BarberServiceRepository implements IBarberService {
       description?: string;
       price?: number;
       duration?: number;
+      barberShop_id: string;
     }
   ): Promise<any> {
     return await prisma.barberService.update({ where: { id }, data });
