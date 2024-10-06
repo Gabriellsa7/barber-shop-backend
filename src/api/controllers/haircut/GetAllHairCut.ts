@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-import { BarberServiceService } from "../../services/BarberServiceService";
-import { BarberServiceRepository } from "../../repositories/BarberServiceRepository";
 import { HairCutService } from "../../services/HairCutService";
 import { HairCutRepository } from "../../repositories/HairCutRepository";
 
@@ -15,7 +13,7 @@ export default {
     } catch (error) {
       return res
         .status(400)
-        .send({ message: "It was not possible to get all barberShop" });
+        .send({ message: "It was not possible to get all hairCut" });
     }
   },
 };
