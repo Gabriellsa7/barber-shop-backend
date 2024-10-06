@@ -37,6 +37,7 @@ export class BarberServiceService {
       description?: string;
       price?: number;
       duration?: number;
+      barberShop_id: string;
     }
   ) {
     return this.baberServiceRepository.updateService(id, data);
