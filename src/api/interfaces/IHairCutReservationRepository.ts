@@ -4,9 +4,9 @@ export interface IHairCutReservationRepository {
   createReservation(data: {
     barberShop_id: string;
     service_id: string;
-    date: Date;
+    date_time: Date;
     status: ReservationStatus;
-    client_id: string;
+    user_id: string;
     image_url?: string; // optional, if not always necessary
   }): Promise<any>;
 
@@ -15,9 +15,9 @@ export interface IHairCutReservationRepository {
     data: {
       barberShop_id: string;
       service_id: string;
-      date?: Date;
+      date_time?: Date;
       status?: ReservationStatus;
-      client_id?: string;
+      user_id?: string;
       image_url?: string;
     }
   ): Promise<any>;
@@ -32,5 +32,5 @@ export interface IHairCutReservationRepository {
   getBarberShopId(barberShop_id: string): Promise<any | null>;
   // New method to get a barberService by ID, used in a validation
   getBarberServiceId(service_id: string): Promise<any | null>;
-  getClientId(client_id: string): Promise<any | null>;
+  getUserId(user_id: string): Promise<any | null>;
 }
