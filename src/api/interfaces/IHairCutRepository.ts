@@ -1,3 +1,5 @@
+import { BarberService, BarberShop, HairCut } from "@prisma/client";
+
 export interface IHairCutRepository {
   createHairCut(data: {
     name: string;
@@ -5,11 +7,11 @@ export interface IHairCutRepository {
     img_url: string;
     barberShop_id: string;
     service_id: string;
-  }): Promise<any>;
+  }): Promise<HairCut>;
 
-  getHairCut(id: string): Promise<any>;
+  getHairCut(id: string): Promise<HairCut | null>;
 
-  getAllHairCut(): Promise<any>;
+  getAllHairCut(): Promise<HairCut[]>;
 
   updateHairCut(
     id: string,
@@ -22,10 +24,10 @@ export interface IHairCutRepository {
     }
   ): Promise<any>;
 
-  deleteHairCut(id: string): Promise<any>;
+  deleteHairCut(id: string): Promise<HairCut>;
 
   // New method to get a barbershop by ID, used in a validation
-  getBarberShop(barberShop_id: string): Promise<any | null>;
+  getBarberShop(barberShop_id: string): Promise<BarberShop | null>;
   // New method to get a barberService by ID, used in a validation
-  getBarberService(service_id: string): Promise<any | null>;
+  getBarberService(service_id: string): Promise<BarberService | null>;
 }
