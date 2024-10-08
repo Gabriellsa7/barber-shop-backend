@@ -1,13 +1,18 @@
+import { BarberShop } from "@prisma/client";
+
 export interface IBarberShopRepository {
   createBarberShop(data: {
     name: string;
     address: string;
     description: string;
-  }): Promise<any>;
+    rating: number | null;
+    opening_hours: string | null;
+    img_url: string | null;
+  }): Promise<BarberShop | null>;
 
-  getAllBarberShop(): Promise<any>;
+  getAllBarberShop(): Promise<BarberShop[] | null>;
 
-  getBarberShop(id: string): Promise<any>;
+  getBarberShop(id: string): Promise<BarberShop | null>;
 
   updateBarberShop(
     id: string,
@@ -15,8 +20,11 @@ export interface IBarberShopRepository {
       name?: string;
       address?: string;
       description?: string;
+      rating?: number | null;
+      opening_hours?: string | null;
+      img_url?: string | null;
     }
-  ): Promise<any>;
+  ): Promise<BarberShop | null>;
 
   deleteBarberShop(id: string): Promise<any>;
 }
