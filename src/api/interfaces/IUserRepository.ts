@@ -1,3 +1,5 @@
+import { User } from "@prisma/client";
+
 // Define an interface named IUserRepository
 export interface IUserRepository {
   // Method to create a new user
@@ -7,13 +9,13 @@ export interface IUserRepository {
     name: string; // The name of the user to be created
     email: string; // The email of the user to be created, should be unique
     password: string; // The password of the user to be created
-  }): Promise<any>;
+  }): Promise<User>;
   // Method to retrieve a list of users
   // Returns a Promise that resolves to an array of any type (usually an array of user objects)
-  getUsers(): Promise<any[]>;
+  getUsers(): Promise<User[]>;
 
   // Returns a Promise that resolve a user
-  getUserById(id: string): Promise<any>;
+  getUserById(id: string): Promise<User | null>;
 
   updateUser(
     id: string,
@@ -22,7 +24,7 @@ export interface IUserRepository {
       email?: string;
       password?: string;
     }
-  ): Promise<any>;
+  ): Promise<User>;
 
-  deleteUser(id: string): Promise<any>;
+  deleteUser(id: string): Promise<User>;
 }
