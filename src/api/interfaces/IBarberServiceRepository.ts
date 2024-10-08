@@ -1,3 +1,5 @@
+import { BarberService } from "@prisma/client";
+
 export interface IBarberService {
   createService(data: {
     name: string;
@@ -5,11 +7,11 @@ export interface IBarberService {
     price: number;
     duration: number;
     barberShop_id: string;
-  }): Promise<any>;
+  }): Promise<BarberService>;
 
-  getService(id: string): Promise<any>;
+  getService(id: string): Promise<BarberService | null>;
 
-  getAllServices(): Promise<any>;
+  getAllServices(): Promise<BarberService[]>;
 
   updateService(
     id: string,
@@ -20,7 +22,7 @@ export interface IBarberService {
       duration?: number;
       barberShop_id?: string;
     }
-  ): Promise<any>;
+  ): Promise<BarberService>;
 
-  deleteService(id: string): Promise<any>;
+  deleteService(id: string): Promise<BarberService>;
 }
