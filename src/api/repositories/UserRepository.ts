@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 import { IUserRepository } from "../interfaces/IUserRepository";
 
 // Create an instance of PrismaClient
@@ -11,7 +11,7 @@ export class UserRepository implements IUserRepository {
     name: string;
     email: string;
     password: string;
-  }): Promise<any> {
+  }): Promise<User> {
     // Use the PrismaClient instance to create a new user record in the database
     return await prisma.user.create({
       data, // Pass the user data to the Prisma 'create' method
@@ -19,26 +19,26 @@ export class UserRepository implements IUserRepository {
   }
 
   // Method to get all users
-  async getUsers(): Promise<any[]> {
+  async getUsers(): Promise<User[]> {
     // Use the PrismaClient instance to retrieve all user records from the database
     return await prisma.user.findMany();
   }
 
-  async getUserById(id: string): Promise<any> {
+  async getUserById(id: string): Promise<User | null> {
     return await prisma.user.findUnique({ where: { id } });
   }
 
   async updateUser(
     id: string,
     data: { name?: string; email?: string; password?: string }
-  ): Promise<any> {
+  ): Promise<User> {
     return await prisma.user.update({
       where: { id: String(id) },
       data,
     });
   }
 
-  async deleteUser(id: string) {
+  async deleteUser(id: string): Promise<User> {
     return await prisma.user.delete({ where: { id } });
   }
 }
