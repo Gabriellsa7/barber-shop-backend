@@ -6,7 +6,8 @@ export default {
   async updateBarberShop(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const { name, address, description } = req.body;
+      const { name, address, description, rating, opening_hours, img_url } =
+        req.body;
 
       const updateBarberShop = new BarberShopService(
         new BarberShopRepository()
@@ -16,6 +17,9 @@ export default {
         name,
         address,
         description,
+        rating,
+        opening_hours,
+        img_url,
       });
 
       return res.status(200).send(barberShop);

@@ -6,12 +6,15 @@ import { validateBarberShopFields } from "../../utils/barberShopValidation";
 export default {
   async createBarberShope(req: Request, res: Response) {
     try {
-      const { name, address, description } = req.body;
+      const { name, address, description, rating, opening_hours, img_url } =
+        req.body;
 
       const validation = await validateBarberShopFields(
         name,
         address,
-        description
+        description,
+        rating,
+        opening_hours
       );
       if (validation && validation.error) {
         return res.json(validation);
@@ -24,7 +27,10 @@ export default {
       const barberShop = await createBarberShop.createBarberShop(
         name,
         address,
-        description
+        description,
+        rating,
+        opening_hours,
+        img_url
       );
 
       return res.status(201).send(barberShop);

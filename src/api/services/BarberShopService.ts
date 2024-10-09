@@ -6,12 +6,18 @@ export class BarberShopService {
   public async createBarberShop(
     name: string,
     address: string,
-    description: string
+    description: string,
+    rating: number,
+    opening_hours: string,
+    img_url: string
   ) {
     const barberShop = await this.baberShopRepository.createBarberShop({
       name,
       address,
       description,
+      rating,
+      opening_hours,
+      img_url,
     });
     return barberShop;
   }
@@ -26,7 +32,14 @@ export class BarberShopService {
 
   public async updateBarberShop(
     id: string,
-    data: { name: string; address: string; description: string }
+    data: {
+      name: string;
+      address: string;
+      description: string;
+      rating: number | null;
+      opening_hours: string | null;
+      img_url: string | null;
+    }
   ) {
     return await this.baberShopRepository.updateBarberShop(id, data);
   }
