@@ -19,96 +19,102 @@ enum ReservationStatus {
   CANCELLED
 }
 
+enum PaymentMethod {
+  CREDIT_CARD
+  DEBIT_CARD
+  PAYPAL
+  CASH
+}
+
 model User {
-  id String @id @default(uuid())
-  name String
-  email String @unique
-  password String
-  phone String? @unique
-  reservations HairCutReservation[]
-  payments Payment[]
+  id              String                 @id @default(uuid())
+  name            String
+  email           String                 @unique
+  password        String
+  phone           String?                @unique
+  reservations    HairCutReservation[]
+  payments        Payment[]
   authentications ClientAuthentication[]
+
   @@map("clients")
 }
 
 model ClientAuthentication {
-  id        String    @id @default(uuid())
+  id      String @id @default(uuid())
   user_id String
-  token     String
-  client    User  @relation(fields: [user_id], references: [id])
+  token   String
+  client  User   @relation(fields: [user_id], references: [id])
 
   @@map("client_authentication")
 }
 
 model BarberShop {
-  id String @id @default(uuid())
-  name String
-  address String
-  description String
-  rating Float?
+  id            String               @id @default(uuid())
+  name          String
+  address       String
+  description   String
+  rating        Float?
   opening_hours String?
-  img_url String?
-  services BarberService []
-  haircuts HairCut[]
-  reservations HairCutReservation[]
-
+  img_url       String?
+  services      BarberService[]
+  haircuts      HairCut[]
+  reservations  HairCutReservation[]
 
   @@map("barber_shop")
 }
 
 model HairCutReservation {
-  id             String @id @default(uuid())
-  date_time      DateTime
-  status         ReservationStatus
-  img_url      String?
-  user_id      String
-  user         User             @relation(fields: [user_id], references: [id])
-  barberShop_id  String
-  barberShop     BarberShop         @relation(fields: [barberShop_id], references: [id])
-  service_id     String
-  service        BarberService      @relation(fields: [service_id], references: [id])
-  payment        Payment []
+  id            String            @id @default(uuid())
+  date_time     DateTime
+  status        ReservationStatus
+  img_url       String?
+  user_id       String
+  user          User              @relation(fields: [user_id], references: [id])
+  barberShop_id String
+  barberShop    BarberShop        @relation(fields: [barberShop_id], references: [id])
+  service_id    String
+  service       BarberService     @relation(fields: [service_id], references: [id])
+  payment       Payment[]
 
   @@map("hair_cut_reservation")
 }
 
-model BarberService  {
-  id String @id @default(uuid())
-  name String
-  description String
-  price Float
-  duration Int
+model BarberService {
+  id            String               @id @default(uuid())
+  name          String
+  description   String
+  price         Float
+  duration      Int
   barberShop_id String
-  barberShop  BarberShop @relation(fields: [barberShop_id], references: [id])
-  reservations   HairCutReservation[]
-  hair_cut HairCut[]
+  barberShop    BarberShop           @relation(fields: [barberShop_id], references: [id])
+  reservations  HairCutReservation[]
+  hair_cut      HairCut[]
 
   @@map("barber_service")
 }
 
 model HairCut {
-  id String @id @default(uuid())
-  name String
-  description String
-  img_url String
-  barberShop_id  String
-  service_id String
-  barberShop BarberShop          @relation(fields: [barberShop_id], references: [id])
-  service BarberService       @relation(fields: [service_id], references: [id])
+  id            String        @id @default(uuid())
+  name          String
+  description   String
+  img_url       String
+  barberShop_id String
+  service_id    String
+  barberShop    BarberShop    @relation(fields: [barberShop_id], references: [id])
+  service       BarberService @relation(fields: [service_id], references: [id])
 
   @@map("hair_cut")
 }
 
 model Payment {
-  id String @id @default(uuid())
-  value Float
-  payment_method String
-  status String
-  user_id      String
+  id             String             @id @default(uuid())
+  value          Float
+  payment_method PaymentMethod
+  status         ReservationStatus
+  user_id        String
   reserve_id     String
-  user         User             @relation(fields: [user_id], references: [id])
+  user           User               @relation(fields: [user_id], references: [id])
   reservation    HairCutReservation @relation(fields: [reserve_id], references: [id])
 
   @@map("payment")
 }
-
