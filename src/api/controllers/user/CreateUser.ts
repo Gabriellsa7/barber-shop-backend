@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { UserService } from "../../services/UserService";
 import { UserRepository } from "../../repositories/UserRepository";
-import { prisma } from "../../database";
 import { validateUserFields } from "../../utils/userValidation";
 
 // Method to handle the creation of a new user.
