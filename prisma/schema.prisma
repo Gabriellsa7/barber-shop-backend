@@ -41,8 +41,8 @@ model User {
 
 model ClientAuthentication {
   id      String @id @default(uuid())
-  user_id String
-  token   String
+  user_id String @unique
+  token   String @unique
   client  User   @relation(fields: [user_id], references: [id])
 
   @@map("client_authentication")
